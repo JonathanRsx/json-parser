@@ -43,9 +43,12 @@ export function useCodeMirror({
   const containerRef = useRef<HTMLDivElement>(null);
   const viewRef = useRef<EditorView | null>(null);
   const onChangeRef = useRef(onChange);
-  onChangeRef.current = onChange;
   const onSelectionChangeRef = useRef(onSelectionChange);
-  onSelectionChangeRef.current = onSelectionChange;
+
+  useEffect(() => {
+    onChangeRef.current = onChange;
+    onSelectionChangeRef.current = onSelectionChange;
+  });
 
   useEffect(() => {
     if (!containerRef.current) return;

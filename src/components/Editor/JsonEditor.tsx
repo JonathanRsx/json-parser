@@ -1,18 +1,18 @@
-import { useEffect, type RefObject } from "react";
+import { useEffect } from "react";
 import { type EditorView } from "@codemirror/view";
 import { useCodeMirror } from "../../hooks/useCodeMirror";
 
 interface JsonEditorProps {
   value: string;
   onChange: (value: string) => void;
-  editorViewRef: RefObject<EditorView | null>;
+  onViewReady?: (view: EditorView | null) => void;
   onSelectionChange?: () => void;
 }
 
 export function JsonEditor({
   value,
   onChange,
-  editorViewRef,
+  onViewReady,
   onSelectionChange,
 }: JsonEditorProps) {
   const { containerRef, viewRef } = useCodeMirror({
@@ -22,7 +22,7 @@ export function JsonEditor({
   });
 
   useEffect(() => {
-    (editorViewRef as { current: EditorView | null }).current = viewRef.current;
+    onViewReady?.(viewRef.current);
   });
 
   return (
