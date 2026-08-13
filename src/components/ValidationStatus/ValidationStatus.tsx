@@ -11,13 +11,13 @@ export function ValidationStatus({
 }: ValidationStatusProps) {
   if (validation.isValid) {
     return (
-      <div className="flex items-center gap-3 p-3 bg-green-50 border border-green-200 mx-2">
+      <div className="flex items-center gap-3 p-3 bg-lime-50 border border-lime-300 mx-2">
         <span
-          className="w-2 h-2 rounded-full bg-green-500 shrink-0"
+          className="w-2 h-2 rounded-full bg-lime-500 shrink-0"
           aria-hidden="true"
         />
         <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
-          <span className="font-medium text-green-800">Valid JSON</span>
+          <span className="font-medium text-lime-800">Valid JSON</span>
           {stats && (
             <>
               <span className="text-gray-600">
