@@ -38,9 +38,9 @@ export function SearchBar({
         value={query}
         onChange={(e) => onQueryChange(e.target.value)}
         onKeyDown={handleKeyDown}
-        placeholder="Rechercher…"
+        placeholder="Search…"
         className="flex-1 px-2 py-1 text-sm border border-gray-300 rounded bg-white min-w-48"
-        aria-label="Rechercher dans le JSON"
+        aria-label="Search in JSON"
       />
 
       <label className="flex items-center gap-1 text-xs text-gray-600 cursor-pointer select-none">
@@ -57,7 +57,7 @@ export function SearchBar({
         onClick={onPrevious}
         disabled={matchCount.total === 0}
         className="p-1.5 text-sm text-gray-600 border border-gray-300 rounded hover:bg-gray-200 disabled:opacity-40 disabled:cursor-not-allowed"
-        aria-label="Occurrence précédente"
+        aria-label="Previous occurrence"
       >
         ▲
       </button>
@@ -66,16 +66,16 @@ export function SearchBar({
         onClick={onNext}
         disabled={matchCount.total === 0}
         className="p-1.5 text-sm text-gray-600 border border-gray-300 rounded hover:bg-gray-200 disabled:opacity-40 disabled:cursor-not-allowed"
-        aria-label="Occurrence suivante"
+        aria-label="Next occurrence"
       >
         ▼
       </button>
 
       <span className="text-xs text-gray-500 min-w-16 text-center">
         {query
-          ? matchCount.total > 0
+            ? matchCount.total > 0
             ? `${matchCount.current} / ${matchCount.total}`
-            : "Aucun résultat"
+            : "No results"
           : ""}
       </span>
 
@@ -86,18 +86,18 @@ export function SearchBar({
         type="button"
         onClick={onCopy}
         className="px-3 py-1.5 text-sm font-medium bg-blue-600 text-white rounded hover:bg-blue-700"
-        aria-label="Copier le contenu formaté"
+        aria-label="Copy formatted content"
       >
-        Copier
+        Copy
       </button>
 
       <button
         type="button"
         onClick={onClear}
         className="px-3 py-1.5 text-sm font-medium bg-gray-100 text-gray-700 border border-gray-300 rounded hover:bg-gray-200"
-        aria-label="Effacer le contenu"
+        aria-label="Clear content"
       >
-        Effacer
+        Clear
       </button>
     </div>
   );

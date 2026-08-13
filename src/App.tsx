@@ -35,7 +35,7 @@ export default function App() {
         <div className="flex items-center justify-between">
           <h1 className="text-lg font-semibold">JSON Parser</h1>
           <span className="text-xs text-gray-400">
-            Traitement 100 % local — aucune donnée envoyée au serveur
+            Processing 100% local — no data is sent to any server
           </span>
         </div>
       </header>
