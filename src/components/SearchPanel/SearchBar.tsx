@@ -1,5 +1,24 @@
 import { useState } from "react";
 
+function ChevronIcon({ direction }: { direction: "up" | "down" }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="14"
+      height="14"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className={direction === "up" ? "rotate-180" : undefined}
+    >
+      <path d="M6 9l6 6 6-6" />
+    </svg>
+  );
+}
+
 interface SearchBarProps {
   query: string;
   caseSensitive: boolean;
@@ -66,19 +85,19 @@ export function SearchBar({
         type="button"
         onClick={onPrevious}
         disabled={matchCount.total === 0}
-        className="p-1.5 text-sm text-gray-600 border border-gray-300 rounded hover:bg-gray-200 disabled:opacity-40 disabled:cursor-not-allowed"
+        className="p-1.5 flex items-center justify-center text-sm text-gray-600 border border-gray-300 rounded hover:bg-gray-200 disabled:opacity-40 disabled:cursor-not-allowed"
         aria-label="Previous occurrence"
       >
-        ▲
+        <ChevronIcon direction="up" />
       </button>
       <button
         type="button"
         onClick={onNext}
         disabled={matchCount.total === 0}
-        className="p-1.5 text-sm text-gray-600 border border-gray-300 rounded hover:bg-gray-200 disabled:opacity-40 disabled:cursor-not-allowed"
+        className="p-1.5 flex items-center justify-center text-sm text-gray-600 border border-gray-300 rounded hover:bg-gray-200 disabled:opacity-40 disabled:cursor-not-allowed"
         aria-label="Next occurrence"
       >
-        ▼
+        <ChevronIcon direction="down" />
       </button>
 
       <span className="text-xs text-gray-500 min-w-16 text-center">

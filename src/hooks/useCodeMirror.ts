@@ -19,6 +19,16 @@ import {
 import { elementCountPlugin } from "../components/Editor/elementCountPlugin";
 import { searchMatchHighlighter } from "../components/Editor/searchMatchHighlighter";
 
+function createChevronMarker(open: boolean): HTMLElement {
+  const wrapper = document.createElement("span");
+  wrapper.style.display = "inline-flex";
+  wrapper.style.color = "#6b7280";
+  wrapper.style.transform = open ? "none" : "rotate(-90deg)" ;
+  wrapper.innerHTML =
+    '<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+  return wrapper;
+}
+
 interface UseCodeMirrorOptions {
   value: string;
   onChange: (value: string) => void;
@@ -59,7 +69,7 @@ export function useCodeMirror({
             const placeholder = document.createElement("span");
             placeholder.className = "cm-foldPlaceholder";
             placeholder.onclick = onclick;
-            placeholder.title = "Déplier";
+            placeholder.title = "Expand";
 
             // Try to determine the element count from the syntax tree
             const sel = view.state.selection.main;
@@ -104,7 +114,11 @@ export function useCodeMirror({
             return placeholder;
           },
         }),
-        foldGutter(),
+        foldGutter({
+          markerDOM(open) {
+            return createChevronMarker(open);
+          },
+        }),
         bracketMatching(),
         syntaxHighlighting(defaultHighlightStyle),
         search(),
