@@ -1,7 +1,6 @@
 import { useRef } from "react";
 import { type EditorView } from "@codemirror/view";
 import { JsonEditor } from "./components/Editor/JsonEditor";
-import { Toolbar } from "./components/Toolbar/Toolbar";
 import { SearchBar } from "./components/SearchPanel/SearchBar";
 import { ValidationStatus } from "./components/ValidationStatus/ValidationStatus";
 import { useJsonDocument } from "./hooks/useJsonDocument";
@@ -42,8 +41,6 @@ export default function App() {
       </header>
 
       <main className="flex-1 flex flex-col gap-3 p-4 min-h-0">
-        <Toolbar onCopy={handleCopy} onClear={handleClear} />
-
         <SearchBar
           query={query}
           caseSensitive={caseSensitive}
@@ -52,6 +49,8 @@ export default function App() {
           onCaseSensitiveChange={handleCaseSensitiveChange}
           onNext={handleNext}
           onPrevious={handlePrevious}
+          onCopy={handleCopy}
+          onClear={handleClear}
         />
 
         <JsonEditor

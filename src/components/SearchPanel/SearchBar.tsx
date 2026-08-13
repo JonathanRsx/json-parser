@@ -6,6 +6,8 @@ interface SearchBarProps {
   onCaseSensitiveChange: (value: boolean) => void;
   onNext: () => void;
   onPrevious: () => void;
+  onCopy: () => void;
+  onClear: () => void;
 }
 
 export function SearchBar({
@@ -16,6 +18,8 @@ export function SearchBar({
   onCaseSensitiveChange,
   onNext,
   onPrevious,
+  onCopy,
+  onClear,
 }: SearchBarProps) {
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
@@ -39,6 +43,15 @@ export function SearchBar({
         aria-label="Rechercher dans le JSON"
       />
 
+      <label className="flex items-center gap-1 text-xs text-gray-600 cursor-pointer select-none">
+        <input
+          type="checkbox"
+          checked={caseSensitive}
+          onChange={(e) => onCaseSensitiveChange(e.target.checked)}
+          className="rounded"
+        />
+        Aa
+      </label>
       <button
         type="button"
         onClick={onPrevious}
@@ -66,15 +79,26 @@ export function SearchBar({
           : ""}
       </span>
 
-      <label className="flex items-center gap-1 text-xs text-gray-600 cursor-pointer select-none">
-        <input
-          type="checkbox"
-          checked={caseSensitive}
-          onChange={(e) => onCaseSensitiveChange(e.target.checked)}
-          className="rounded"
-        />
-        Aa
-      </label>
+
+      <div className="flex-1" />
+
+      <button
+        type="button"
+        onClick={onCopy}
+        className="px-3 py-1.5 text-sm font-medium bg-blue-600 text-white rounded hover:bg-blue-700"
+        aria-label="Copier le contenu formaté"
+      >
+        Copier
+      </button>
+
+      <button
+        type="button"
+        onClick={onClear}
+        className="px-3 py-1.5 text-sm font-medium bg-gray-100 text-gray-700 border border-gray-300 rounded hover:bg-gray-200"
+        aria-label="Effacer le contenu"
+      >
+        Effacer
+      </button>
     </div>
   );
 }
