@@ -56,7 +56,16 @@ export default function App() {
         <ValidationStatus validation={validation} stats={stats} />
       </main>
       <footer className="px-4 pb-2 text-xs text-gray-400 text-center">
-        Made by Jororso @{new Date().getFullYear()} - Processing 100% local, no data is sent to any server
+        © {new Date().getFullYear()} Jororso · Processing 100% local, no data
+        is sent to any server ·{" "}
+        <a
+          href="https://github.com/JonathanRsx/json-parser"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-lime-800 hover:underline"
+        >
+          GitHub
+        </a>
       </footer>
     </div>
   );
