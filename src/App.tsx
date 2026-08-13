@@ -47,7 +47,9 @@ export default function App() {
         <JsonEditor
           value={rawText}
           onChange={setRawText}
-          editorViewRef={editorViewRef}
+          onViewReady={(view) => {
+            editorViewRef.current = view;
+          }}
           onSelectionChange={notifyChange}
         />
 

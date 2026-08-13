@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo, type RefObject } from "react";
+import { useState, useCallback, useEffect, type RefObject } from "react";
 import { type EditorView } from "@codemirror/view";
 import {
   SearchQuery,
@@ -57,9 +57,14 @@ export function useEditorSearch(viewRef: RefObject<EditorView | null>) {
     if (view) findPrevious(view);
   }, [viewRef]);
 
-  const matchCount = useMemo(() => {
+  const [matchCount, setMatchCount] = useState({ current: 0, total: 0 });
+
+  useEffect(() => {
     const view = viewRef.current;
-    if (!view || !query) return { current: 0, total: 0 };
+    if (!view || !query) {
+      setMatchCount({ current: 0, total: 0 });
+      return;
+    }
 
     const sq = getSearchQuery(view.state);
     const cursor = sq.getCursor(view.state.doc);
@@ -75,8 +80,7 @@ export function useEditorSearch(viewRef: RefObject<EditorView | null>) {
       }
       result = cursor.next();
     }
-    return { current, total };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setMatchCount({ current, total });
   }, [query, caseSensitive, viewRef, tick]);
 
   return {
