@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 interface SearchBarProps {
   query: string;
   caseSensitive: boolean;
@@ -21,6 +23,8 @@ export function SearchBar({
   onCopy,
   onClear,
 }: SearchBarProps) {
+  const [copied, setCopied] = useState(false);
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       if (e.shiftKey) {
@@ -29,6 +33,12 @@ export function SearchBar({
         onNext();
       }
     }
+  };
+
+  const handleCopy = () => {
+    onCopy();
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -84,11 +94,11 @@ export function SearchBar({
 
       <button
         type="button"
-        onClick={onCopy}
+        onClick={handleCopy}
         className="px-3 py-1.5 text-sm font-medium bg-blue-600 text-white rounded hover:bg-blue-700"
         aria-label="Copy formatted content"
       >
-        Copy
+        {copied ? "Copied!" : "Copy"}
       </button>
 
       <button
