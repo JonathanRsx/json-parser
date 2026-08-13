@@ -1,7 +1,11 @@
+import { useRef } from "react";
+import { type EditorView } from "@codemirror/view";
 import { JsonEditor } from "./components/Editor/JsonEditor";
 import { Toolbar } from "./components/Toolbar/Toolbar";
+import { SearchBar } from "./components/SearchPanel/SearchBar";
 import { ValidationStatus } from "./components/ValidationStatus/ValidationStatus";
 import { useJsonDocument } from "./hooks/useJsonDocument";
+import { useEditorSearch } from "./hooks/useEditorSearch";
 
 export default function App() {
   const {
@@ -14,6 +18,19 @@ export default function App() {
     handleCopy,
     handleClear,
   } = useJsonDocument();
+
+  const editorViewRef = useRef<EditorView | null>(null);
+
+  const {
+    query,
+    caseSensitive,
+    matchCount,
+    handleQueryChange,
+    handleCaseSensitiveChange,
+    handleNext,
+    handlePrevious,
+    notifyChange,
+  } = useEditorSearch(editorViewRef);
 
   return (
     <div className="h-screen flex flex-col bg-white text-gray-900">
@@ -35,9 +52,21 @@ export default function App() {
           isValid={validation.isValid}
         />
 
+        <SearchBar
+          query={query}
+          caseSensitive={caseSensitive}
+          matchCount={matchCount}
+          onQueryChange={handleQueryChange}
+          onCaseSensitiveChange={handleCaseSensitiveChange}
+          onNext={handleNext}
+          onPrevious={handlePrevious}
+        />
+
         <JsonEditor
           value={rawText}
           onChange={setRawText}
+          editorViewRef={editorViewRef}
+          onSelectionChange={notifyChange}
         />
 
         <ValidationStatus validation={validation} stats={stats} />

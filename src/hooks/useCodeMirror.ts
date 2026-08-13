@@ -11,19 +11,31 @@ import {
   syntaxTree,
 } from "@codemirror/language";
 import { defaultKeymap, history, historyKeymap } from "@codemirror/commands";
-import { searchKeymap, highlightSelectionMatches } from "@codemirror/search";
+import {
+  search,
+  searchKeymap,
+  highlightSelectionMatches,
+} from "@codemirror/search";
 import { elementCountPlugin } from "../components/Editor/elementCountPlugin";
+import { searchMatchHighlighter } from "../components/Editor/searchMatchHighlighter";
 
 interface UseCodeMirrorOptions {
   value: string;
   onChange: (value: string) => void;
+  onSelectionChange?: () => void;
 }
 
-export function useCodeMirror({ value, onChange }: UseCodeMirrorOptions) {
+export function useCodeMirror({
+  value,
+  onChange,
+  onSelectionChange,
+}: UseCodeMirrorOptions) {
   const containerRef = useRef<HTMLDivElement>(null);
   const viewRef = useRef<EditorView | null>(null);
   const onChangeRef = useRef(onChange);
   onChangeRef.current = onChange;
+  const onSelectionChangeRef = useRef(onSelectionChange);
+  onSelectionChangeRef.current = onSelectionChange;
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -31,6 +43,9 @@ export function useCodeMirror({ value, onChange }: UseCodeMirrorOptions) {
     const updateListener = EditorView.updateListener.of((update) => {
       if (update.docChanged) {
         onChangeRef.current(update.state.doc.toString());
+      }
+      if (update.docChanged || update.selectionSet) {
+        onSelectionChangeRef.current?.();
       }
     });
 
@@ -92,6 +107,8 @@ export function useCodeMirror({ value, onChange }: UseCodeMirrorOptions) {
         foldGutter(),
         bracketMatching(),
         syntaxHighlighting(defaultHighlightStyle),
+        search(),
+        searchMatchHighlighter,
         highlightSelectionMatches(),
         json(),
         elementCountPlugin,
@@ -110,6 +127,12 @@ export function useCodeMirror({ value, onChange }: UseCodeMirrorOptions) {
           ".cm-gutters": {
             backgroundColor: "var(--color-gray-50)",
             borderRight: "1px solid var(--color-gray-200)",
+          },
+          ".cm-searchMatch": {
+            backgroundColor: "#fef08a",
+          },
+          ".cm-searchMatch-selected": {
+            backgroundColor: "#fb923c",
           },
         }),
       ],
@@ -142,5 +165,5 @@ export function useCodeMirror({ value, onChange }: UseCodeMirrorOptions) {
     }
   }, [value]);
 
-  return { containerRef };
+  return { containerRef, viewRef };
 }
