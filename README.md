@@ -31,7 +31,7 @@ Everything runs 100% locally in the browser: no backend, no database, no account
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) 20 or newer
+- [Node.js](https://nodejs.org/) 24 or newer
 - npm (comes with Node.js)
 
 ### Clone and install
