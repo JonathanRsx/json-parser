@@ -1,10 +1,5 @@
 import { useState, useCallback, useMemo } from "react";
-import {
-  validateJson,
-  formatJson,
-  minifyJson,
-  getDocumentStats,
-} from "../features/json";
+import { validateJson, formatJson, getDocumentStats } from "../features/json";
 import type { ValidationResult, DocumentStats } from "../features/json";
 
 const DEFAULT_JSON = `{
@@ -23,6 +18,11 @@ const DEFAULT_JSON = `{
 export function useJsonDocument() {
   const [rawText, setRawText] = useState(DEFAULT_JSON);
 
+  const handleTextChange = useCallback((text: string) => {
+    const formatted = formatJson(text);
+    setRawText(formatted ?? text);
+  }, []);
+
   const validation: ValidationResult = useMemo(
     () => validateJson(rawText),
     [rawText],
@@ -33,22 +33,13 @@ export function useJsonDocument() {
     [rawText, validation.isValid],
   );
 
-  const handleFormat = useCallback(() => {
-    const result = formatJson(rawText);
-    if (result !== null) {
-      setRawText(result);
-    }
-  }, [rawText]);
-
-  const handleMinify = useCallback(() => {
-    const result = minifyJson(rawText);
-    if (result !== null) {
-      setRawText(result);
-    }
-  }, [rawText]);
-
   const handleCopy = useCallback(async () => {
-    await navigator.clipboard.writeText(rawText);
+    const formatted = formatJson(rawText);
+    const textToCopy = formatted ?? rawText;
+    if (formatted !== null) {
+      setRawText(formatted);
+    }
+    await navigator.clipboard.writeText(textToCopy);
   }, [rawText]);
 
   const handleClear = useCallback(() => {
@@ -57,11 +48,9 @@ export function useJsonDocument() {
 
   return {
     rawText,
-    setRawText,
+    setRawText: handleTextChange,
     validation,
     stats,
-    handleFormat,
-    handleMinify,
     handleCopy,
     handleClear,
   };

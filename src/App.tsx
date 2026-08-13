@@ -13,8 +13,6 @@ export default function App() {
     setRawText,
     validation,
     stats,
-    handleFormat,
-    handleMinify,
     handleCopy,
     handleClear,
   } = useJsonDocument();
@@ -44,13 +42,7 @@ export default function App() {
       </header>
 
       <main className="flex-1 flex flex-col gap-3 p-4 min-h-0">
-        <Toolbar
-          onFormat={handleFormat}
-          onMinify={handleMinify}
-          onCopy={handleCopy}
-          onClear={handleClear}
-          isValid={validation.isValid}
-        />
+        <Toolbar onCopy={handleCopy} onClear={handleClear} />
 
         <SearchBar
           query={query}
