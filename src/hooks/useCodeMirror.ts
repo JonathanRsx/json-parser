@@ -1,4 +1,4 @@
-import { useRef, useEffect, useCallback } from "react";
+import { useRef, useEffect } from "react";
 import { EditorView, keymap, lineNumbers } from "@codemirror/view";
 import { EditorState } from "@codemirror/state";
 import { json } from "@codemirror/lang-json";
@@ -7,8 +7,6 @@ import {
   syntaxHighlighting,
   foldGutter,
   codeFolding,
-  foldAll,
-  unfoldAll,
   bracketMatching,
   syntaxTree,
 } from "@codemirror/language";
@@ -144,15 +142,5 @@ export function useCodeMirror({ value, onChange }: UseCodeMirrorOptions) {
     }
   }, [value]);
 
-  const foldAllNodes = useCallback(() => {
-    const view = viewRef.current;
-    if (view) foldAll(view);
-  }, []);
-
-  const unfoldAllNodes = useCallback(() => {
-    const view = viewRef.current;
-    if (view) unfoldAll(view);
-  }, []);
-
-  return { containerRef, foldAllNodes, unfoldAllNodes };
+  return { containerRef };
 }

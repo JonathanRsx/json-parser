@@ -3,8 +3,6 @@ interface ToolbarProps {
   onMinify: () => void;
   onCopy: () => void;
   onClear: () => void;
-  onFoldAll: () => void;
-  onUnfoldAll: () => void;
   isValid: boolean;
 }
 
@@ -13,8 +11,6 @@ export function Toolbar({
   onMinify,
   onCopy,
   onClear,
-  onFoldAll,
-  onUnfoldAll,
   isValid,
 }: ToolbarProps) {
   return (
@@ -56,27 +52,6 @@ export function Toolbar({
       >
         Effacer
       </button>
-
-      <div className="w-px h-6 bg-gray-300 mx-1" aria-hidden="true" />
-
-      <button
-        type="button"
-        onClick={onFoldAll}
-        className="px-3 py-1.5 text-sm font-medium bg-gray-100 text-gray-700 border border-gray-300 rounded hover:bg-gray-200"
-        aria-label="Tout replier"
-      >
-        Replier
-      </button>
-
-      <button
-        type="button"
-        onClick={onUnfoldAll}
-        className="px-3 py-1.5 text-sm font-medium bg-gray-100 text-gray-700 border border-gray-300 rounded hover:bg-gray-200"
-        aria-label="Tout déplier"
-      >
-        Déplier
-      </button>
-
     </div>
   );
 }

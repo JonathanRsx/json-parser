@@ -1,4 +1,3 @@
-import { useRef, useCallback } from "react";
 import { JsonEditor } from "./components/Editor/JsonEditor";
 import { Toolbar } from "./components/Toolbar/Toolbar";
 import { ValidationStatus } from "./components/ValidationStatus/ValidationStatus";
@@ -15,16 +14,6 @@ export default function App() {
     handleCopy,
     handleClear,
   } = useJsonDocument();
-
-  const foldAllRef = useRef<() => void>(() => {});
-  const unfoldAllRef = useRef<() => void>(() => {});
-
-  const registerFoldAll = useCallback((fn: () => void) => {
-    foldAllRef.current = fn;
-  }, []);
-  const registerUnfoldAll = useCallback((fn: () => void) => {
-    unfoldAllRef.current = fn;
-  }, []);
 
   return (
     <div className="h-screen flex flex-col bg-white text-gray-900">
@@ -43,16 +32,12 @@ export default function App() {
           onMinify={handleMinify}
           onCopy={handleCopy}
           onClear={handleClear}
-          onFoldAll={() => foldAllRef.current()}
-          onUnfoldAll={() => unfoldAllRef.current()}
           isValid={validation.isValid}
         />
 
         <JsonEditor
           value={rawText}
           onChange={setRawText}
-          onFoldAll={registerFoldAll}
-          onUnfoldAll={registerUnfoldAll}
         />
 
         <ValidationStatus validation={validation} stats={stats} />

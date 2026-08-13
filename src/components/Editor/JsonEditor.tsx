@@ -3,24 +3,10 @@ import { useCodeMirror } from "../../hooks/useCodeMirror";
 interface JsonEditorProps {
   value: string;
   onChange: (value: string) => void;
-  onFoldAll: (fn: () => void) => void;
-  onUnfoldAll: (fn: () => void) => void;
 }
 
-export function JsonEditor({
-  value,
-  onChange,
-  onFoldAll,
-  onUnfoldAll,
-}: JsonEditorProps) {
-  const { containerRef, foldAllNodes, unfoldAllNodes } = useCodeMirror({
-    value,
-    onChange,
-  });
-
-  // Expose fold/unfold to parent
-  onFoldAll(foldAllNodes);
-  onUnfoldAll(unfoldAllNodes);
+export function JsonEditor({ value, onChange }: JsonEditorProps) {
+  const { containerRef } = useCodeMirror({ value, onChange });
 
   return (
     <div
