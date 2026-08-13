@@ -5,3 +5,8 @@ body {
   font-family: ui-monospace, Consolas, monospace;
 }
 
+::selection {
+  background-color: #000;
+  color: #fff;
+}
+

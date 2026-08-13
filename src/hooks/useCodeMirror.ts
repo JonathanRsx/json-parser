@@ -148,6 +148,12 @@ export function useCodeMirror({
           ".cm-searchMatch-selected": {
             backgroundColor: "#fb923c",
           },
+          "&.cm-focused .cm-selectionBackground, .cm-selectionBackground": {
+            backgroundColor: "#000 !important",
+          },
+          "&.cm-focused .cm-content ::selection": {
+            backgroundColor: "#000",
+          },
         }),
       ],
     });
