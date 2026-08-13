@@ -11,9 +11,9 @@ export function ValidationStatus({
 }: ValidationStatusProps) {
   if (validation.isValid) {
     return (
-      <div className="flex items-center gap-3 p-3 bg-green-50 border border-green-200 rounded-lg">
+      <div className="flex items-center gap-3 p-3 bg-green-50 border border-green-200 mx-2">
         <span
-          className="w-3 h-3 rounded-full bg-green-500 shrink-0"
+          className="w-2 h-2 rounded-full bg-green-500 shrink-0"
           aria-hidden="true"
         />
         <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
@@ -37,9 +37,9 @@ export function ValidationStatus({
   }
 
   return (
-    <div className="flex items-start gap-3 p-3 bg-red-50 border border-red-200 rounded-lg">
+    <div className="flex items-start gap-3 p-3 bg-red-50 border border-red-200 mx-2">
       <span
-        className="w-3 h-3 mt-0.5 rounded-full bg-red-500 shrink-0"
+        className="w-2 h-2 mt-0.5 rounded-full bg-red-500 shrink-0"
         aria-hidden="true"
       />
       <div className="text-sm">
@@ -47,12 +47,12 @@ export function ValidationStatus({
         {validation.error && (
           <p className="text-red-700 mt-1">
             {validation.error.message}
-            {validation.error.line && (
+            {/* {validation.error.line && (
               <span className="ml-2 text-red-500">
                 (line {validation.error.line}
                 {validation.error.column && `, column ${validation.error.column}`})
               </span>
-            )}
+            )} */}
           </p>
         )}
       </div>

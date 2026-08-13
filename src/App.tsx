@@ -31,16 +31,7 @@ export default function App() {
 
   return (
     <div className="h-screen flex flex-col bg-white text-gray-900">
-      <header className="px-4 py-3 border-b border-gray-200">
-        <div className="flex items-center justify-between">
-          <h1 className="text-lg font-semibold">JSON Parser</h1>
-          <span className="text-xs text-gray-400">
-            Processing 100% local — no data is sent to any server
-          </span>
-        </div>
-      </header>
-
-      <main className="flex-1 flex flex-col gap-3 p-4 min-h-0">
+      <main className="flex-1 flex flex-col gap-3 min-h-0 pt-4 pb-2">
         <SearchBar
           query={query}
           caseSensitive={caseSensitive}
@@ -62,6 +53,9 @@ export default function App() {
 
         <ValidationStatus validation={validation} stats={stats} />
       </main>
+      <footer className="px-4 pb-2 text-xs text-gray-400 text-center">
+        Made by Jororso @{new Date().getFullYear()} - Processing 100% local, no data is sent to any server
+      </footer>
     </div>
   );
 }

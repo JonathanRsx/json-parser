@@ -28,7 +28,7 @@ export function JsonEditor({
   return (
     <div
       ref={containerRef}
-      className="flex-1 min-h-0 border border-gray-200 rounded-lg overflow-hidden"
+      className="flex-1 min-h-0 border border-gray-200 overflow-hidden"
     />
   );
 }

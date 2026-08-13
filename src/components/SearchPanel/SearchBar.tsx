@@ -61,14 +61,15 @@ export function SearchBar({
   };
 
   return (
-    <div className="flex flex-wrap items-center gap-2 p-2 bg-gray-50 border border-gray-200 rounded-lg">
+    <div className="flex gap-2 items-center px-4">
+      <h1 className="text-lg font-semibold mr-4">JSON Parser</h1>
       <input
         type="text"
         value={query}
         onChange={(e) => onQueryChange(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder="Search…"
-        className="flex-1 px-2 py-1 text-sm border border-gray-300 rounded bg-white min-w-48"
+        className="flex-1 px-2 py-1 text-sm border border-gray-300 rounded bg-white min-w-48 w-full"
         aria-label="Search in JSON"
       />
 
@@ -102,14 +103,11 @@ export function SearchBar({
 
       <span className="text-xs text-gray-500 min-w-16 text-center">
         {query
-            ? matchCount.total > 0
+          ? matchCount.total > 0
             ? `${matchCount.current} / ${matchCount.total}`
             : "No results"
           : ""}
       </span>
-
-
-      <div className="flex-1" />
 
       <button
         type="button"
